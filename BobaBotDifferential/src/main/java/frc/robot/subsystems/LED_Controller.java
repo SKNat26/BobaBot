@@ -9,7 +9,7 @@ import frc.robot.extra.led;
 public class LEDs extends SubsystemBase{
   public final PWMSparkMax LEDCONTROLLER;
 
-  public LEDs(){
+  public LED_Controller(){
     this.LEDCONTROLLER = new PWMSparkMax(Constants.LEDPORT);
   }
 
