@@ -21,6 +21,7 @@ public final class Constants {
     public static final int LM1Port = 3;
     public static final int LM2Port = 4;
     public static final int LM3Port = 5;
+    public static final int LEDPORT = 6;
     
 
 
