@@ -36,7 +36,10 @@ public class Drivetrain extends SubsystemBase {
 
   //Diff Drive
   public final DifferentialDrive DIFF_DRIVE;
-  public boolean isForward;  
+  public boolean isForward; 
+  
+  //Joystick
+  public final Joystick joystick;
 
   // TWIST COEFFICIENT
   public double twistCoefficient;
@@ -59,7 +62,8 @@ public class Drivetrain extends SubsystemBase {
     //Diff drive
     DIFF_DRIVE = new DifferentialDrive(L_MOTORS, R_MOTORS);
 
-
+    //Joystick
+    joystick = new Joystick(Constants.joystickVal);
   }
 
   public void configureMotors() {
