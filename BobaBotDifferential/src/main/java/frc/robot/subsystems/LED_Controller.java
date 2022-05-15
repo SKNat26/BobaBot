@@ -4,21 +4,19 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.extra.led;
+import frc.robot.util.Led;
 
-public class LEDs extends SubsystemBase{
-  public final PWMSparkMax LEDCONTROLLER;
+public class LED_Controller extends SubsystemBase{
+  public final PWMSparkMax LedController;
 
   public LED_Controller(){
-    this.LEDCONTROLLER = new PWMSparkMax(Constants.LEDPORT);
+    this.LedController = new PWMSparkMax(Constants.LEDPORT);
+    //this.LEDCONTROLLER.setVoltage(5.0);
   }
 
-  public void setColor(led color){
-    LEDCONTROLLER.set(color.getValue());
-  }
-
-  public void turnOff(){
-    LEDCONTROLLER.set(0.99);
+  public void setColor(Led color){
+    //this.LEDCONTROLLER.setVoltage(5.0);
+    this.LedController.set(color.getValue());
   }
 
     @Override

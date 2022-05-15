@@ -2,19 +2,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.kauailabs.navx.frc.AHRS;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 import frc.robot.Constants;
 
 
@@ -43,14 +35,14 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     //Right motors
-    this.RMOTOR1 = new WPI_TalonSRX(Constants.RM1Port);
-    this.RMOTOR2 = new WPI_TalonSRX(Constants.RM2Port);
-    this.RMOTOR3 = new WPI_TalonSRX(Constants.RM3Port);
+    this.RMOTOR1 = new WPI_TalonSRX(Constants.RM1PORT);
+    this.RMOTOR2 = new WPI_TalonSRX(Constants.RM2PORT);
+    this.RMOTOR3 = new WPI_TalonSRX(Constants.RM3PORT);
     
     //Left motors
-    this.LMOTOR1 = new WPI_TalonSRX(Constants.LM1Port);
-    this.LMOTOR2 = new WPI_TalonSRX(Constants.LM2Port);
-    this.LMOTOR3 = new WPI_TalonSRX(Constants.LM3Port);
+    this.LMOTOR1 = new WPI_TalonSRX(Constants.LM1PORT);
+    this.LMOTOR2 = new WPI_TalonSRX(Constants.LM2PORT);
+    this.LMOTOR3 = new WPI_TalonSRX(Constants.LM3PORT);
     
     //Motors Groups
     R_MOTORS = new MotorControllerGroup(this.RMOTOR1, this.RMOTOR2, this.RMOTOR3);
@@ -58,6 +50,8 @@ public class Drivetrain extends SubsystemBase {
 
     //Diff drive
     DIFF_DRIVE = new DifferentialDrive(L_MOTORS, R_MOTORS);
+
+    configureMotors();
 
   }
 
@@ -75,5 +69,19 @@ public class Drivetrain extends SubsystemBase {
     this.LMOTOR1.setNeutralMode(NeutralMode.Coast);
     this.LMOTOR2.setNeutralMode(NeutralMode.Coast);
     this.LMOTOR3.setNeutralMode(NeutralMode.Coast);
+  }
+
+  public void driveRobot(Joystick joystick, boolean sensitivity){
+    DIFF_DRIVE.arcadeDrive(joystick.getY(), joystick.getZ(), sensitivity);
+  }
+
+  public void stop(){
+    DIFF_DRIVE.stopMotor();
+  }
+
+  public void ping(){}
+
+  public boolean isAlive(){
+    return true;
   }
 }

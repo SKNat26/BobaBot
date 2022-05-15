@@ -6,7 +6,7 @@ package frc.robot.commands.color_commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.util.led;
+import frc.robot.Constants;
 
 public class setRainbow extends CommandBase {
 
@@ -24,7 +24,7 @@ public class setRainbow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.LIGHTS.setColor(led.RAINBOW);;
+    RobotContainer.LIGHTS.setColor(Constants.RAINBOW);;
   }
 
   // Called once the command ends or is interrupted.
