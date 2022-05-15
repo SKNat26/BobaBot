@@ -7,10 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Led.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.color_commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,9 +21,9 @@ import frc.robot.commands.color_commands.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain dtrain = new Drivetrain();
-  public static final LED_Controller LIGHTS = new LED_Controller();
+  public static final LEDController LIGHTS = new LEDController();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final setRainbow auto = new setRainbow();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

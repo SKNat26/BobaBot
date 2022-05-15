@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.util.Led;
 
-public class LED_Controller extends SubsystemBase{
+public class LEDController extends SubsystemBase{
   public final PWMSparkMax LedController;
 
-  public LED_Controller(){
+  public LEDController(){
     this.LedController = new PWMSparkMax(Constants.LEDPORT);
     //this.LEDCONTROLLER.setVoltage(5.0);
   }

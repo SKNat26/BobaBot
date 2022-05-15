@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -8,9 +7,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Constants;
+import frc.robot.util.subsystems.MechanicalSubsystem;
 
 
-public class Drivetrain extends SubsystemBase {
+public class Drivetrain extends MechanicalSubsystem {
   
   //RightMotors
   private final WPI_TalonSRX RMOTOR1;
@@ -31,7 +31,7 @@ public class Drivetrain extends SubsystemBase {
   public boolean isForward; 
 
   // TWIST COEFFICIENT
-  public double twistCoefficient;
+  private final double TWIST_COEFFICIENT;
 
   public Drivetrain() {
     //Right motors
@@ -49,7 +49,13 @@ public class Drivetrain extends SubsystemBase {
     L_MOTORS = new MotorControllerGroup(this.LMOTOR1, this.LMOTOR2, this.LMOTOR3);
 
     //Diff drive
-    DIFF_DRIVE = new DifferentialDrive(L_MOTORS, R_MOTORS);
+    DIFF_DRIVE = new DifferentialDrive(R_MOTORS, L_MOTORS);
+
+    //DRIVE VARIABLES
+    this.TWIST_COEFFICIENT = 1.25;
+    this.isForward = true;
+
+    //TODO set group to inverted
 
     configureMotors();
 
@@ -71,12 +77,27 @@ public class Drivetrain extends SubsystemBase {
     this.LMOTOR3.setNeutralMode(NeutralMode.Coast);
   }
 
-  public void driveRobot(Joystick joystick, boolean sensitivity){
-    DIFF_DRIVE.arcadeDrive(joystick.getY(), joystick.getZ(), sensitivity);
+  public void drive(Joystick joystick){
+
+    double y = joystick.getY();
+    double rotate = joystick.getTwist();
+
+    if (!this.isForward){
+      y = -y;
+    }
+
+    DIFF_DRIVE.arcadeDrive(y, rotate / TWIST_COEFFICIENT, false);
   }
 
-  public void stop(){
+  public void reverseDirection() {
+    this.isForward = !isForward;
+  }
+
+  public void shuffleBoard(){}
+
+  public boolean stop(){
     DIFF_DRIVE.stopMotor();
+    return false;
   }
 
   public void ping(){}
