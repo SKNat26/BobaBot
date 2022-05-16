@@ -26,8 +26,6 @@ public class DriverJoystick {
 
     }
 
-    
-
     public Joystick getJoystick(){
         return JOYSTICK;
     }

@@ -14,7 +14,6 @@ public class CommandLinker
 
   public CommandLinker() {}
 
-  
   public void configureRegisteredSubsystems() {
     CommandScheduler.getInstance().registerSubsystem(Robot.LED_CONTROLLER);
     CommandScheduler.getInstance().registerSubsystem(Robot.DRIVETRAIN);

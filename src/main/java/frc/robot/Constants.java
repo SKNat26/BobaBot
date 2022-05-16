@@ -34,6 +34,7 @@ public final class Constants {
 
     //WHEELSPINNER PORTS
     public static final int WHEEL_MOTOR_PORT = 7;
+    public static final int WHEEL_BEAM_PORT = 4;
     
     //DRIVE PORT
     public static final int JOYSTICKPORT = 0;
@@ -42,6 +43,8 @@ public final class Constants {
     /*-------*/
     /* OTHER */
     /*-------*/
+
+    public static final int BOBA_NUMBER = 10;
 
     //SPEEDS
     public static final double STRAW_MOTOR_SPEED = 0.5;
@@ -53,9 +56,14 @@ public final class Constants {
     public static final Led RED = new Led(0.61);
     public static final Led BLUE = new Led(0.87);
     
-    //BUTTONS
-    public static final int RAINBOWBUTTON = 3;
-    public static final int GREENBUTTON = 4;
-    public static final int REDBUTTON = 5;
-    public static final int BLUEBUTTON = 6;
+    //JOYSTICK BUTTONS
+    //TODO Change buttons
+    public static final int REVERSE_DIRECTION_BUTTON = 2;
+    public static final int SPIN_WHEEL_BUTTON = 1;
+    public static final int SHOOT_STRAW_BUTTON = 3;
+    public static final int UPDATE_INVENTORY_BUTTON = 4;
+    public static final int RAINBOWBUTTON = 9;
+    public static final int GREENBUTTON = 10;
+    public static final int REDBUTTON = 11;
+    public static final int BLUEBUTTON = 12;
 }
