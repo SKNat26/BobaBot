@@ -58,12 +58,20 @@ public final class Constants {
     
     //JOYSTICK BUTTONS
     //TODO Change buttons
+    public static final int SHOOT_STRAW_BUTTON = 1;
     public static final int REVERSE_DIRECTION_BUTTON = 2;
-    public static final int SPIN_WHEEL_BUTTON = 1;
-    public static final int SHOOT_STRAW_BUTTON = 3;
-    public static final int UPDATE_INVENTORY_BUTTON = 4;
-    public static final int RAINBOWBUTTON = 9;
-    public static final int GREENBUTTON = 10;
-    public static final int REDBUTTON = 11;
-    public static final int BLUEBUTTON = 12;
+    public static final int UPDATE_INVENTORY_BUTTON = 3; //TODO update inventory on shuffleboard, not joystick
+
+    public static final int SPIN_WHEEL_NORMAL_BUTTON = 4;
+    public static final int SPIN_WHEEL_PEACH_GREEN_BUTTON = 5;
+    public static final int SPIN_WHEEL_TARO_BUTTON = 6;
+    public static final int SPIN_WHEEL_MANGO_BUTTON = 7;
+    public static final int SPIN_WHEEL_BROWN_SUGAR_BUTTON = 8;
+    public static final int SPIN_WHEEL_STRAWBERRY_BUTTON = 9;
+    public static final int SPIN_WHEEL_SMOOTHIE_BUTTON = 10;
+
+    // public static final int RAINBOWBUTTON = 9;
+    // public static final int GREENBUTTON = 10;
+    // public static final int REDBUTTON = 11;
+    // public static final int BLUEBUTTON = 12;
 }

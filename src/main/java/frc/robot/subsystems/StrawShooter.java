@@ -28,7 +28,6 @@ public class StrawShooter extends MechanicalSubsystem {
     if (!strawPresent()) {
       this.STRAW_MOTOR.set(Constants.STRAW_MOTOR_SPEED);
     }
-    // TODO use leds for effects, like turn red if straw is present
   }
 
   public void configureMotors() {

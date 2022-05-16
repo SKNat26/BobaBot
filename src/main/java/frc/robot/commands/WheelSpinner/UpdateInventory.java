@@ -4,12 +4,11 @@ package frc.robot.commands.WheelSpinner;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Robot;
-import frc.robot.util.Boba;
 
-public class SpinWheel extends CommandBase {
+public class UpdateInventory extends CommandBase {
 
-  public SpinWheel() {
-      addRequirements(Robot.STRAW_SHOOTER);
+  public UpdateInventory() {
+      addRequirements(Robot.WHEEL_SPINNER);
   }
 
   @Override
@@ -19,12 +18,12 @@ public class SpinWheel extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.WHEEL_SPINNER.spin(Boba.BROWN_SUGAR); //TODO temporary for now, but will create different command and button for each drink
+    Robot.WHEEL_SPINNER.updateInventory();
   }
 
   @Override
   public boolean isFinished() {
-    return Robot.STRAW_SHOOTER.strawPresent();
+    return true;
   }
 
   @Override

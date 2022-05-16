@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Joystick;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,16 +46,17 @@ public class WheelSpinner extends MechanicalSubsystem {
 
   public void spin(Boba drink){
     if (!bobaInStock(drink)) {
-      // TODO turn LED certain color
+      // TODO turn LED red
       return;
     }
 
-    if (drink == inventory[currentSlot]) {
+    if (bobaSelected(drink)) {
       /* TODO
-      * turn LED certain color
+      * turn LED green
       * activate elevator
       */
       inventory[currentSlot] = null;
+      // TODO use getNumBoba() to change color on LEDS
       return;
     }
 
@@ -70,13 +70,17 @@ public class WheelSpinner extends MechanicalSubsystem {
     previousBobaPresent = bobaPresent();
   }
 
-  private boolean bobaInStock(Boba drink) {
+  public boolean bobaInStock(Boba drink) {
     for (Boba b : Boba.values()) {
       if (b == drink) {
         return true;
       }
     }
     return false;
+  }
+
+  public boolean bobaSelected(Boba drink) {
+    return drink == inventory[currentSlot];
   }
 
   public void updateInventory() {
