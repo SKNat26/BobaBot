@@ -1,13 +1,17 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import frc.robot.Constants;
 import frc.robot.util.subsystems.MechanicalSubsystem;
+import frc.robot.util.Boba;
 
 public class WheelSpinner extends MechanicalSubsystem {
   
@@ -16,19 +20,25 @@ public class WheelSpinner extends MechanicalSubsystem {
   private final DigitalInput WHEEL_BEAM;
 
   //Inventory and Choosers
-  private final SensableChooser<Boba>[] choosers;
+  private final ArrayList<SendableChooser<Boba>> choosers;
   private final Boba[] inventory;
+  // private final SendableChooser<Boba>[] choosers;
+  private int currentSlot;
+  private boolean previousBobaPresent;
 
   public WheelSpinner() {
 
-    //Motor
+    //Motor and Beam
     this.WHEEL_MOTOR = new WPI_TalonSRX(Constants.WHEEL_MOTOR_PORT);
     this.WHEEL_BEAM = new DigitalInput(Constants.WHEEL_BEAM_PORT);
     // TODO elevator?
 
     //Inventory and Choosers
-    this.choosers = new SensableChooser<Boba>[BOBA_NUMBER];
-    this.inventory = new Boba[BOBA_NUMBER];
+    this.choosers = new ArrayList<>();
+    this.inventory = new Boba[Constants.BOBA_NUMBER];
+    //this.choosers = new SendableChooser<Boba>[Constants.BOBA_NUMBER];
+    this.currentSlot = 0;
+    this.previousBobaPresent = true;
 
     initializeChoosers();
     updateInventory();
@@ -36,24 +46,68 @@ public class WheelSpinner extends MechanicalSubsystem {
   }
 
   public void spin(Boba drink){
-    if (inventory.indexOf(drink) >= 0) {
-      //
+    if (!bobaInStock(drink)) {
+      // TODO turn LED certain color
+      return;
     }
+
+    if (drink == inventory[currentSlot]) {
+      /* TODO
+      * turn LED certain color
+      * activate elevator
+      */
+      inventory[currentSlot] = null;
+      return;
+    }
+
+    // If no boba before, but now there is boba, increase slot
+    if (previousBobaPresent == false && bobaPresent()) {
+      currentSlot++;
+      currentSlot %= 10;
+    }
+
+    this.WHEEL_MOTOR.set(Constants.WHEEL_MOTOR_SPEED);
+    previousBobaPresent = bobaPresent();
+  }
+
+  private boolean bobaInStock(Boba drink) {
+    for (Boba b : Boba.values()) {
+      if (b == drink) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public void updateInventory() {
     for (int i = 0; i < inventory.length; i++) {
-      inventory[i] = choosers[i].getSelected();
+      inventory[i] = choosers.get(i).getSelected();
     }
   }
 
+  private boolean bobaPresent() {
+    return !this.WHEEL_BEAM.get();
+  }
+
   private void initializeChoosers() {
-    for (SensableChooser<Boba> chooser : choosers) {
+    for (SendableChooser<Boba> chooser : choosers) {
       for (Boba b : Boba.values()) {
         chooser.addOption(b.toString(), b);
       }
       chooser.setDefaultOption("None", null);
     }
+  }
+
+  public int getNumBoba() {
+    int num = 0;
+
+    for (int i = 0; i < inventory.length; i++) {
+      if (inventory[i] != null) {
+        num++;
+      }
+    }
+
+    return num;
   }
 
   public void configureMotors() {
@@ -62,8 +116,8 @@ public class WheelSpinner extends MechanicalSubsystem {
   }
 
   public void shuffleBoard(){
-    for (int i = 0; i < choosers.length; i++) {
-      SmartDashboard.putData("Slot " + i, choosers[i]);
+    for (int i = 0; i < choosers.size(); i++) {
+      SmartDashboard.putData("Slot " + i, choosers.get(i));
     }
   }
 

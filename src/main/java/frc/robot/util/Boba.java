@@ -1,4 +1,4 @@
-package main.java.frc.robot.util;
+package frc.robot.util;
 
 public enum Boba {
     NORMAL("Normal"),
