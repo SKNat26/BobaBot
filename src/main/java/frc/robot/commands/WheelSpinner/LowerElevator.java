@@ -4,11 +4,10 @@ package frc.robot.commands.WheelSpinner;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Robot;
-import frc.robot.util.Boba;
 
-public class SpinWheelBrownSugar extends CommandBase {
+public class LowerElevator extends CommandBase {
 
-  public SpinWheelBrownSugar() {
+  public LowerElevator() {
       addRequirements(Robot.WHEEL_SPINNER);
   }
 
@@ -19,14 +18,18 @@ public class SpinWheelBrownSugar extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.WHEEL_SPINNER.spin(Boba.BROWN_SUGAR);
+    Robot.WHEEL_SPINNER.lowerElevator();
   }
 
   @Override
   public boolean isFinished() {
-    return !Robot.WHEEL_SPINNER.bobaInStock(Boba.BROWN_SUGAR) || Robot.WHEEL_SPINNER.elevatorUp();
+    return Robot.WHEEL_SPINNER.elevatorDown();
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+      if (interrupted) {
+          Robot.WHEEL_SPINNER.stop();
+      }
+  }
 }

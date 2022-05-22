@@ -24,7 +24,7 @@ public class SpinWheelMango extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Robot.WHEEL_SPINNER.bobaInStock(Boba.MANGO) || Robot.WHEEL_SPINNER.bobaSelected(Boba.MANGO);
+    return !Robot.WHEEL_SPINNER.bobaInStock(Boba.MANGO) || Robot.WHEEL_SPINNER.elevatorUp();
   }
 
   @Override

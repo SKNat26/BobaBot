@@ -11,12 +11,12 @@ public class StrawShooter extends MechanicalSubsystem {
   
   //Motor and Beam
   private final WPI_TalonSRX STRAW_MOTOR;
-  private final DigitalInput STRAW_BEAM;
+  //private final DigitalInput STRAW_BEAM;
 
   public StrawShooter() {
     
     this.STRAW_MOTOR = new WPI_TalonSRX(Constants.STRAW_MOTOR_PORT);
-    this.STRAW_BEAM = new DigitalInput(Constants.STRAW_BEAM_PORT); 
+    //this.STRAW_BEAM = new DigitalInput(Constants.STRAW_BEAM_PORT); 
 
     //TODO invert motors
 
@@ -25,19 +25,20 @@ public class StrawShooter extends MechanicalSubsystem {
   }
 
   public void shoot() {
-    if (!strawPresent()) {
-      this.STRAW_MOTOR.set(Constants.STRAW_MOTOR_SPEED);
-    }
+    // if (!strawPresent()) {
+    //   this.STRAW_MOTOR.set(Constants.STRAW_MOTOR_SPEED);
+    // }
+    this.STRAW_MOTOR.set(Constants.STRAW_MOTOR_SPEED);
   }
 
   public void configureMotors() {
     this.STRAW_MOTOR.configFactoryDefault();
-    this.STRAW_MOTOR.setNeutralMode(NeutralMode.Brake);
+    this.STRAW_MOTOR.setNeutralMode(NeutralMode.Coast);
   }
 
-  public boolean strawPresent() {
-    return !STRAW_BEAM.get();
-  }
+  // public boolean strawPresent() {
+  //   return !STRAW_BEAM.get();
+  // }
 
   public void shuffleBoard(){}
 

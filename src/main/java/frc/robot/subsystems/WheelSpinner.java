@@ -9,19 +9,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.util.subsystems.MechanicalSubsystem;
 import frc.robot.util.Boba;
+import frc.robot.util.Color;
 
 public class WheelSpinner extends MechanicalSubsystem {
   
-  //Motor and Beam
+  //Motor and Input
   private final WPI_TalonSRX WHEEL_MOTOR;
+  private final WPI_TalonSRX ELEVATOR_MOTOR;
   private final DigitalInput WHEEL_BEAM;
+  private final DigitalInput ELEVATOR_UPPER_LIMIT;
+  private final DigitalInput ELEVATOR_LOWER_LIMIT;
 
   //Inventory and Choosers
   private final ArrayList<SendableChooser<Boba>> choosers;
   private final Boba[] inventory;
-  // private final SendableChooser<Boba>[] choosers;
+
   private int currentSlot;
   private boolean previousBobaPresent;
 
@@ -30,12 +35,14 @@ public class WheelSpinner extends MechanicalSubsystem {
     //Motor and Beam
     this.WHEEL_MOTOR = new WPI_TalonSRX(Constants.WHEEL_MOTOR_PORT);
     this.WHEEL_BEAM = new DigitalInput(Constants.WHEEL_BEAM_PORT);
-    // TODO elevator?
+    this.ELEVATOR_MOTOR = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_PORT);
+    this.ELEVATOR_UPPER_LIMIT = new DigitalInput(Constants.ELEVATOR_UPPER_LIMIT_PORT);
+    this.ELEVATOR_LOWER_LIMIT = new DigitalInput(Constants.ELEVATOR_LOWER_LIMIT_PORT);
 
     //Inventory and Choosers
     this.choosers = new ArrayList<>();
     this.inventory = new Boba[Constants.BOBA_NUMBER];
-    //this.choosers = new SendableChooser<Boba>[Constants.BOBA_NUMBER];
+
     this.currentSlot = 0;
     this.previousBobaPresent = true;
 
@@ -46,17 +53,17 @@ public class WheelSpinner extends MechanicalSubsystem {
 
   public void spin(Boba drink){
     if (!bobaInStock(drink)) {
-      // TODO turn LED red
+      Robot.LED_CONTROLLER.setColor(Color.HEARTBEAT_RED);
       return;
     }
 
-    if (bobaSelected(drink)) {
-      /* TODO
-      * turn LED green
-      * activate elevator
-      */
+    if (bobaSelected(drink) && !elevatorUp()) {
+      Robot.LED_CONTROLLER.setColor(Color.HEARTBEAT_BLUE);
+      this.WHEEL_MOTOR.stopMotor();
+      liftElevator();
+
       inventory[currentSlot] = null;
-      // TODO use getNumBoba() to change color on LEDS
+
       return;
     }
 
@@ -66,7 +73,10 @@ public class WheelSpinner extends MechanicalSubsystem {
       currentSlot %= 10;
     }
 
-    this.WHEEL_MOTOR.set(Constants.WHEEL_MOTOR_SPEED);
+    if (elevatorDown()) {
+      this.WHEEL_MOTOR.set(Constants.WHEEL_MOTOR_SPEED);
+    }
+
     previousBobaPresent = bobaPresent();
   }
 
@@ -114,9 +124,38 @@ public class WheelSpinner extends MechanicalSubsystem {
     return num;
   }
 
+  public void lowerElevator() {
+    if (!elevatorDown()) {
+      this.ELEVATOR_MOTOR.set(-Constants.ELEVATOR_MOTOR_SPEED);
+    }
+    else {
+      this.ELEVATOR_MOTOR.stopMotor();
+    }
+  }
+
+  private void liftElevator() {
+    if (!elevatorUp()) {
+      this.ELEVATOR_MOTOR.set(Constants.ELEVATOR_MOTOR_SPEED);
+    }
+    else {
+      this.ELEVATOR_MOTOR.stopMotor();
+    }
+  }
+
+  public boolean elevatorUp() {
+    return this.ELEVATOR_UPPER_LIMIT.get();
+  }
+
+  public boolean elevatorDown() {
+    return this.ELEVATOR_LOWER_LIMIT.get();
+  }
+
   public void configureMotors() {
     this.WHEEL_MOTOR.configFactoryDefault();
-    this.WHEEL_MOTOR.setNeutralMode(NeutralMode.Brake);
+    this.ELEVATOR_MOTOR.configFactoryDefault();
+
+    this.WHEEL_MOTOR.setNeutralMode(NeutralMode.Coast);
+    this.ELEVATOR_MOTOR.setNeutralMode(NeutralMode.Brake);
   }
 
   public void shuffleBoard(){
@@ -127,6 +166,7 @@ public class WheelSpinner extends MechanicalSubsystem {
 
   public boolean stop(){
     this.WHEEL_MOTOR.stopMotor();
+    this.ELEVATOR_MOTOR.stopMotor();
     return false;
   }
 

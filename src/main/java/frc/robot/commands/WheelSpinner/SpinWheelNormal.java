@@ -24,7 +24,7 @@ public class SpinWheelNormal extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Robot.WHEEL_SPINNER.bobaInStock(Boba.NORMAL) || Robot.WHEEL_SPINNER.bobaSelected(Boba.NORMAL);
+    return !Robot.WHEEL_SPINNER.bobaInStock(Boba.NORMAL) || Robot.WHEEL_SPINNER.elevatorUp();
   }
 
   @Override

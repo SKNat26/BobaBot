@@ -4,16 +4,6 @@
 
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
-import frc.robot.util.*;
-
 public final class Constants {
 
     /*-------*/
@@ -34,8 +24,11 @@ public final class Constants {
 
     //WHEELSPINNER PORTS
     public static final int WHEEL_MOTOR_PORT = 7;
+    public static final int ELEVATOR_MOTOR_PORT = 7;
     public static final int WHEEL_BEAM_PORT = 4;
-    
+    public static final int ELEVATOR_UPPER_LIMIT_PORT = 5;
+    public static final int ELEVATOR_LOWER_LIMIT_PORT = 6;
+
     //DRIVE PORT
     public static final int JOYSTICKPORT = 0;
     public static final int LEDPORT = 2;
@@ -49,29 +42,20 @@ public final class Constants {
     //SPEEDS
     public static final double STRAW_MOTOR_SPEED = 0.5;
     public static final double WHEEL_MOTOR_SPEED = 0.5;
-
-    //COLOR
-    public static final Led RAINBOW = new Led(-0.99);
-    public static final Led GREEN = new Led(0.77);
-    public static final Led RED = new Led(0.61);
-    public static final Led BLUE = new Led(0.87);
+    public static final double ELEVATOR_MOTOR_SPEED = 0.2;
     
     //JOYSTICK BUTTONS
     //TODO Change buttons
     public static final int SHOOT_STRAW_BUTTON = 1;
     public static final int REVERSE_DIRECTION_BUTTON = 2;
     public static final int UPDATE_INVENTORY_BUTTON = 3; //TODO update inventory on shuffleboard, not joystick
+    public static final int LOWER_ELEVATOR_BUTTON = 4;
 
-    public static final int SPIN_WHEEL_NORMAL_BUTTON = 4;
-    public static final int SPIN_WHEEL_PEACH_GREEN_BUTTON = 5;
-    public static final int SPIN_WHEEL_TARO_BUTTON = 6;
-    public static final int SPIN_WHEEL_MANGO_BUTTON = 7;
-    public static final int SPIN_WHEEL_BROWN_SUGAR_BUTTON = 8;
-    public static final int SPIN_WHEEL_STRAWBERRY_BUTTON = 9;
-    public static final int SPIN_WHEEL_SMOOTHIE_BUTTON = 10;
-
-    // public static final int RAINBOWBUTTON = 9;
-    // public static final int GREENBUTTON = 10;
-    // public static final int REDBUTTON = 11;
-    // public static final int BLUEBUTTON = 12;
+    public static final int SPIN_WHEEL_NORMAL_BUTTON = 5;
+    public static final int SPIN_WHEEL_PEACH_GREEN_BUTTON = 6;
+    public static final int SPIN_WHEEL_TARO_BUTTON = 7;
+    public static final int SPIN_WHEEL_MANGO_BUTTON = 8;
+    public static final int SPIN_WHEEL_BROWN_SUGAR_BUTTON = 9;
+    public static final int SPIN_WHEEL_STRAWBERRY_BUTTON = 10;
+    public static final int SPIN_WHEEL_SMOOTHIE_BUTTON = 11;
 }

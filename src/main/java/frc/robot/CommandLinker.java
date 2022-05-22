@@ -4,12 +4,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Drivetrain.DiffDrive;
 import frc.robot.controllers.DriverJoystick;
 
-public class CommandLinker 
-{
-  /*****
-   * Joystick Objects
-   *****/
-
+public class CommandLinker {
+  
+  // Joystick object
   public final DriverJoystick driverJoystick = new DriverJoystick();
 
   public CommandLinker() {}

@@ -24,7 +24,7 @@ public class SpinWheelStrawberry extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Robot.WHEEL_SPINNER.bobaInStock(Boba.STRAWBERRY) || Robot.WHEEL_SPINNER.bobaSelected(Boba.STRAWBERRY);
+    return !Robot.WHEEL_SPINNER.bobaInStock(Boba.STRAWBERRY) || Robot.WHEEL_SPINNER.elevatorUp();
   }
 
   @Override

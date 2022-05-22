@@ -23,9 +23,14 @@ public class ShootStraw extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Robot.STRAW_SHOOTER.strawPresent();
+    return false;
+    //return Robot.STRAW_SHOOTER.strawPresent();
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted) {
+      Robot.STRAW_SHOOTER.stop();
+    }
+  }
 }
